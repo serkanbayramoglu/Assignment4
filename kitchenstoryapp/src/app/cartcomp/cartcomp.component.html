@@ -1,0 +1,79 @@
+<!-- sub header section -->
+
+<div class="subheadersection">
+    <h2>Your Shopping Cart...</h2>
+    <div class="spacer"></div>
+    <nav>
+        <a routerLink="/maincomp">Continue shopping</a>
+    </nav>
+</div>
+<div class="subheadersection">
+    <br>
+</div>
+<!-- shopping cart details -->
+<form id="cartform">
+    <div class="bodysection" id="itemstable">
+        <br>
+        <table border="line" style="background-color: lightcyan;">
+            <tr style="background-color: lightsteelblue; height:40px;" align="left">
+                <th width=130px >Code</th>
+                <th width=130px >Category</th>
+                <th width=130px >Item</th>
+                <th width=130px >Brand</th>
+                <th width=130px >Size</th>
+                <th width=130px >Price</th>
+                <th width=130px >Selected Quantity</th>
+                <th width=130px >Total (US$)</th> 
+            </tr>
+            <tr style="height:30px" align="left" *ngFor="let item of cartItems">
+                <td>{{item.icode}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.item}}</td>
+                <td>{{item.brand}}</td>
+                <td>{{item.size}}</td>
+                <td>{{item.price}}</td>
+                <td><input type="number" name="{{item.icode}}" max={{minofdata(item.quantity)}}  min=0 ngModel #count=ngModel [(ngModel)]=item.selectedQuantity (change)="cartCalculations()"/></td> 
+                <td>{{item.price * item.selectedQuantity}}</td>
+                <div *ngIf="count.touched">
+                    <div *ngIf="count.errors?.max">
+                        Cannot be more than {{minofdata(item.quantity)}}
+                    </div>
+                    <div *ngIf="count.errors?.min">
+                        Cannot be less than 0
+                    </div>
+                </div>
+            </tr>
+            <tr >
+                <td colspan="7">Subtotal</td>
+                <td>{{subtotal | number:'.2-2'}}</td>
+            </tr>            <tr >
+                <td colspan="7">Shipping Cost (minimum US$ 2.0 or 2% of subtotal)</td>
+                <td>{{shippingcost | number:'.2-2'}}</td>
+            </tr>
+            <tr >
+                <td colspan="7">TOTAL</td>
+                <td>{{total | number:'.2-2'}}</td>
+            </tr>
+        </table>
+        <br>
+    </div>
+    <div class="bodysection">
+        <br>
+    </div> 
+    <div class="bodysection">
+        <br>
+            <div class="card" id="addresscard">
+                <label>Delivery Adress: </label>
+                <div class="spacer"></div>
+                <div >
+                    <textarea id="addressbox" maxlength="255"  name="comment" form="cartform" placeholder="Enter Adress" ngModel required #addressbox=ngModel></textarea>
+                </div>
+            </div>
+    </div>
+    <div class="bodysection" id="proceedcheckout" *ngIf="!addressbox.errors?.required">
+        <br>
+        <div class="card" id="proceedcheckout" > 
+            <nav routerLink="/paycomp" >Proceed to Checkout</nav>
+        </div>
+    </div>
+</form>

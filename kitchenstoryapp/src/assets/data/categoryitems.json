@@ -1,0 +1,12 @@
+[
+    {"category":"Select","items":["Select"]},
+    {"category":"Dairy Products","items":["Select","Milk","Cream","Cream Powder","Cheese"]},
+    {"category":"Fats and Oils","items":["Select","Butter","Vegetable Oil"]},
+    {"category":"Fruit and Vegetables","items":["Select","Apple Green","Apple Red","Banana","Pear","Mandaline","Orange"]},
+    {"category":"Confectionery","items":["Select","Cocoa","Chocolate","Chewing Gum"]},
+    {"category":"Cereals","items":["Select","Grain","Flour","Starch","Pasta","Noodles"]},
+    {"category":"Bakery","items":["Select","White Bread","Brown Bread"]},
+    {"category":"Meat","items":["Select","Lamb Cubes","Lamb Mince","Beef","Mince Low Fat","Lamb Chops"]},
+    {"category":"Fisheries","items":["Select","Seabream","Seabus","Mussels","Prawn","Solmon"]},
+    {"category":"Poultry","items":["Select","Chicken Tigh","Chicken Breast","Egg","Whole Chicken"]}
+  ]

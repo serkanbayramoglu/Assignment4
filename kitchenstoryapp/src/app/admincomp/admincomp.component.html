@@ -1,0 +1,363 @@
+<nav class="headersection" role="banner">
+    <a routerLink="/maincomp">Sign out return to main page</a>
+</nav>
+
+<!-- sub header section -->
+<div class="subheadersection" role="banner">
+    <h2>Admin Page</h2>
+</div>
+
+<div class="bodysection" >
+    <br>
+</div>
+
+<!-- login section -->
+<div *ngIf=flagpword>
+    <form #loginForm=ngForm (ngSubmit)="loginAdmin(loginForm)">
+        <div class="bodysection">
+            <br>          
+            <div class="card" id="usercard1">
+                <label>Enter Username: </label>
+                <div class="spacer"></div>
+                <input class="card" id="username" type="text" name="uname" placeholder="Username" pattern="^[a-zA-Z]+(\s[a-zA-Z]+)?$" ngModel required #uname=ngModel>
+            </div>
+            <div class="card" id="usercard2">
+                <label>Enter Pasword: </label>
+                <div class="spacer"></div>
+                <input class="card" id="password" type="password" name="pword" placeholder="Password" pattern="[a-zA-Z0-9+_.-]{4,15}" ngModel required #pword=ngModel >
+            </div>
+            <div *ngIf="uname.touched">
+                <div class="card" id="errorcard" *ngIf="uname.errors?.required">
+                    Username is required
+                </div>
+                <div class="card" id="errorcard" *ngIf="uname.errors?.pattern">
+                    Username is invalid
+                </div>
+            </div>
+            <div *ngIf="pword.touched">
+                <div class="card" id="errorcard" *ngIf="pword.errors?.required">
+                    Password is required
+                </div>
+                <div class="card" id="errorcard" *ngIf="pword.errors?.pattern">
+                    Password is invalid
+                </div>
+            </div>
+        </div>
+        <div class="bodysection" > 
+            <br>
+            <button class="card" id="loginbutton" type="submit" [disabled]="loginForm.invalid">Login</button> 
+        </div>
+        <div class="bodysection" style="color:red" *ngIf=flagloginerror> 
+            {{errormessagelogin}}
+        </div>
+    </form>
+</div>
+
+<!-- options section -->
+<div *ngIf=flagoptions>
+    <div class="bodysection" >
+        <h3>Select Action</h3>
+    </div>
+    <div class="bodysection" >
+        <br>
+        <button class="card" id="changepword" type="button" name="changepword" (click)=activatepasswordchange() >Change Password</button>
+        <button class="card" id="masterlist" type="button" name="masterlist" (click)=retrievemasterlist() >Item Master List</button>
+        <button class="card" id="cruops" type="submit" name="cruops" (click)=activatecodequery() >Add/Delete/Update Item</button>
+    </div>
+</div>
+
+<!-- change password section -->
+<div *ngIf=flagchangepword>
+    <div class="bodysection" >
+        <h3>Change Password</h3>
+    </div>
+    <form #changePasswordForm=ngForm (ngSubmit)="changePasswordAdmin(changePasswordForm)">
+        <div class="bodysection" > 
+            <br>
+            <div class="card" id="addresscard1">
+                <label>Enter Username: </label>
+                <div class="spacer"></div>
+                <input class="card" id="username2" type="text" name="uname2" placeholder="Username" pattern="^[a-zA-Z]+(\s[a-zA-Z]+)?$" ngModel required #uname2=ngModel>
+            </div>
+            <div class="card" id="addresscard2">
+                <label>Enter Password: </label>
+                <div class="spacer"></div>
+                <input class="card" id="password2" type="password" name="pword2" placeholder="Password" pattern="[a-zA-Z0-9+_.-]{4,15}" ngModel required #pword2=ngModel>
+            </div>
+            <div *ngIf="uname2.touched">
+                <div class="card" id="errorcard" *ngIf="uname2.errors?.required">
+                    Username is required
+                </div>
+                <div class="card" id="errorcard" *ngIf="uname2.errors?.pattern">
+                    Username is invalid
+                </div>
+            </div>
+            <div *ngIf="pword2.touched">
+                <div class="card" id="errorcard" *ngIf="pword2.errors?.required">
+                    Password is required
+                </div>
+                <div class="card" id="errorcard" *ngIf="pword2.errors?.pattern">
+                    Password is invalid
+                </div>
+            </div>
+        </div>
+
+        <div class="bodysection"> 
+            <br>          
+            <div class="card" id="addresscard3">
+                <label>Enter New Password: </label>
+                <div class="spacer"></div>
+                <input class="card" id="newpassword" type="password" name="newpword" placeholder="New Password" pattern="[a-zA-Z0-9+_.-]{4,15}" ngModel required #newpword=ngModel>
+            </div>
+            <div class="card" id="addresscard4">
+                <label>Re-enter New Pasword: </label>
+                <div class="spacer"></div>
+                <input class="card" id="newpassword2" type="password" name="newpword2" placeholder="New Password" pattern="[a-zA-Z0-9+_.-]{4,15}" ngModel required #newpword2=ngModel>
+            </div>
+            <div *ngIf="newpword.touched">
+                <div class="card" id="errorcard" *ngIf="newpword.errors?.required">
+                    New password is required
+                </div>
+                <div class="card" id="errorcard" *ngIf="newpword.errors?.pattern">
+                    New password is invalid
+                </div>
+            </div>
+            <div *ngIf="newpword2.touched">
+                <div class="card" id="addresscard4" *ngIf="newpword.value!=newpword2.value">
+                    Please re-enter the same new password
+                </div>
+            </div>
+        </div>
+        <div *ngIf="newpword.touched">
+            <div class="bodysection" *ngIf="newpword.value==pword2.value">
+                New password cannot be the same with the current password
+            </div>
+        </div>
+
+        <div class="bodysection"><br></div>
+        <div class="bodysection"> 
+            <br>
+            <button class="card" id="changepword2" type="submit" 
+            [disabled]="changePasswordForm.invalid||newpword.value==pword2.value||newpword.value!=newpword2.value">
+            Change Password
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- change password result section -->
+<div *ngIf=flagchangepasswordresult>
+    <div class="bodysection"><br></div>
+    <div class="bodysection" >
+        {{messagechangepassword}}
+    </div>
+    <div class="bodysection"><br></div>
+    <div class="bodysection" >
+        <br>
+        <button class="card" id="backtooptions" type="button" (click)=returntooptions() >Return to Options</button>
+    </div>
+</div>
+
+<!-- master list section -->
+<div *ngIf=flagmasterlist>
+    <div class="bodysection" >
+        <h3>Master List of Items</h3>
+    </div>
+    <div class="bodysection" id="mastertable">
+        <br>
+        <table border="line" style="background-color: lightcyan;">
+            <tr style="background-color: lightsteelblue; height:40px;" align="left">
+                <th width=130px >Code</th>
+                <th width=130px >Category</th>
+                <th width=130px >Item</th>
+                <th width=130px >Brand</th>
+                <th width=130px >Size</th>
+                <th width=130px >Price</th>
+                <th width=130px >Unit</th>
+                <th width=130px >Quantity</th>
+            </tr>
+            <tr style="height:30px" align="left" *ngFor="let item of itemsFromService">
+                <td>{{item.code}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.item}}</td>
+                <td>{{item.brand}}</td>
+                <td>{{item.size}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.unit}}</td>
+                <td>{{item.quantity}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="bodysection" >
+        <br>
+    </div>
+    <div class="bodysection" >
+        <br>
+        <button class="card" id="backtooptions" type="button" (click)=returntooptions() >Return to Options</button>
+    </div>
+</div>
+
+<!-- query code section -->
+<div *ngIf=flagquerycode >
+    <div class="bodysection" >
+        <h3>Add/Update/Remove Item</h3>
+    </div>
+
+    <form #retrieveItemForm=ngForm (ngSubmit)="retrieveItem(retrieveItemForm)" >
+        <div class="bodysection">
+            <br>          
+            <div class="card" id="retrievecard1">
+                <label>Enter Item Code: </label>
+                <div class="spacer"></div>
+                <input class="card" id="codetoretrieve" type="text" name="codetoretrieve" placeholder="Item Code" ngModel required #codetoretrieve=ngModel [disabled]=flagquerydisabled>
+            </div>
+            <div class="card" id="retrievecard2">
+                <label>Select Action: </label>
+                <div class="spacer"></div>
+                <div >
+                    <input id="actionselect" type="radio" name="actionselect" value="addrecord" ngModel required #actionselect="ngModel" [disabled]=flagquerydisabled><label>&nbsp; Add Record</label><br>
+                    <input id="actionselect" type="radio" name="actionselect" value="updaterecord" ngModel required #actionselect="ngModel" [disabled]=flagquerydisabled><label>&nbsp; Update Record</label><br>
+                    <input id="actionselect" type="radio" name="actionselect" value="deleterecord" ngModel required #actionselect="ngModel" [disabled]=flagquerydisabled><label>&nbsp; Delete Record</label>
+                </div>
+            </div>
+        </div>
+        <div class="bodysection" style="color:red"> 
+            {{errormesage}}
+        </div>    
+        <div class="bodysection"> 
+            <br>
+        </div>    
+        <div class="bodysection" > 
+            <br>
+            <button class="card" id="codetoretrievebutton" type="submit" [disabled]="retrieveItemForm.invalid" [disabled]=flagquerydisabled>Retrieve</button> 
+        </div>
+        <div class="bodysection" >
+            <br>
+            <button class="card" id="backtooptions" type="button" (click)=returntooptions() >Return to Options</button>
+        </div>
+    </form>
+</div>
+
+<!-- action section -->
+<div *ngIf=flagaction>
+    <div class="bodysection" >
+        <h3>{{actionselected}} Item</h3>
+    </div>
+    <form #processActionForm=ngForm (ngSubmit)="processAction(processActionForm)"> 
+        <div class="bodysection"> 
+            <br>          
+            <div class="card" id="cruopscard" *ngIf=!flagadd>
+                <label>Category: </label>
+                <div class="spacer"></div>
+                <label class="card" id="actionsarea">{{itemFromService.category}}</label>
+            </div>
+            <div class="card" id="cruopscard2" *ngIf=!flagdelete>
+                <label>Select Category{{toedit}}: </label>
+                <div class="spacer"></div>
+                <select class="card" id="actionsarea" name="selectedcategory" (change)="setallitemsincategory($event.target)" ngModel #selectedcategory=ngModel><option *ngFor = "let alllist of allitemsincategories">{{alllist.category}}</option></select>
+            </div>
+        </div>
+        <div class="bodysection"> 
+            <br>          
+            <div class="card" id="cruopscard" *ngIf=!flagadd>
+                <label>Item: </label>
+                <div class="spacer"></div>
+                <label class="card" id="actionsarea">{{itemFromService.item}}</label>
+            </div>
+            <div class="card" id="cruopscard2" *ngIf=!flagdelete>
+                <label>Select Item{{toedit}}: </label>
+                <div class="spacer"></div>
+                <select class="card" id="actionsarea" name="selecteditem" ngModel #selecteditem=ngModel><option *ngFor = "let item of allitemsincategory">{{item}}</option></select>
+            </div>
+        </div>
+        <div class="bodysection"> 
+            <br>          
+            <div class="card" id="cruopscard" *ngIf=!flagadd>
+                <label>Size: </label>
+                <div class="spacer"></div>
+                <label class="card" id="actionsarea">{{itemFromService.size}}</label>
+            </div>
+            <div class="card" id="cruopscard2" *ngIf=!flagdelete>
+                <label>Select Size{{toedit}}: </label>
+                <div class="spacer"></div>
+                <input class="card" id="actionsarea" type="text" name="selectedsize" placeholder="regular,33cc..." ngModel #selectedsize=ngModel>
+            </div>
+        </div>
+        <div class="bodysection" > 
+            <br>
+            <div class="card" id="cruopscard" *ngIf=!flagadd>
+                <label>Brand Name: </label>
+                <div class="spacer"></div>
+                <label class="card" id="actionsarea">{{itemFromService.brand}}</label>
+            </div>
+            <div class="card" id="cruopscard2" *ngIf=!flagdelete>
+                <label>Enter Brand Name{{toedit}}: </label>
+                <div class="spacer"></div>
+                <input class="card" id="actionsarea" type="text" name="actionbrand" placeholder="Brand" ngModel #actionbrand=ngModel>
+            </div>
+        </div>
+        <div class="bodysection"> 
+            <br>          
+            <div class="card" id="cruopscard" *ngIf=!flagadd>
+                <label>Available Quantity: </label>
+                <div class="spacer"></div>
+                <label class="card" id="actionsarea">{{itemFromService.quantity}}</label>
+            </div>
+            <div class="card" id="cruopscard2" *ngIf=!flagdelete>
+                <label>Enter Available Quantity{{toedit}}: </label>
+                <div class="spacer"></div>
+                <input class="card" id="actionsarea" type="text" name="actionquantity" placeholder="units" ngModel #actionquantity=ngModel>
+            </div>
+        </div>
+        <div class="bodysection"> 
+            <br>          
+            <div class="card" id="cruopscard" *ngIf=!flagadd>
+                <label>Price: </label>
+                <div class="spacer"></div>
+                <label class="card" id="actionsarea">{{itemFromService.price}}</label>
+            </div>
+            <div class="card" id="cruopscard2" *ngIf=!flagdelete>
+                <label>Enter Price{{toedit}}: </label>
+                <div class="spacer"></div>
+                <input class="card" id="actionsarea" type="text" name="actionprice" placeholder="Price USD" ngModel #actionprice=ngModel>
+            </div>
+        </div>
+        <div class="bodysection"> 
+            <br>          
+            <div class="card" id="cruopscard" *ngIf=!flagadd>
+                <label>Unit: </label>
+                <div class="spacer"></div>
+                <label class="card" id="actionsarea">{{itemFromService.unit}}</label>
+            </div>
+            <div class="card" id="cruopscard2" *ngIf=!flagdelete>
+                <label>Select Unit{{toedit}}: </label>
+                <div class="spacer"></div>
+                <input class="card" id="actionsarea" type="text" name="selectedunit" placeholder="per kg,box,pcs..." ngModel #selectedunit=ngModel>
+            </div>
+        </div>
+        <div class="bodysection" style="color:red"> 
+            {{errormesageaction}}
+        </div>
+        <div class="bodysection" > 
+            <br>
+        </div>
+        <div class="bodysection" > 
+            <br>
+            <button class="card" id="actionsareabtn" type="submit">{{actionselected}}</button>
+        </div>
+        <div class="bodysection" > 
+            <br>
+            <button class="card" id="actionsareabtn" type="button" (click)=returntooptions()>Cancel</button>
+        </div>
+    </form>
+</div>
+
+<!-- action result section -->
+<div *ngIf=flagactionresult>
+    <div class="bodysection" style="color:red"> 
+        {{actionresultmesage}}
+    </div>
+    <div class="bodysection" > 
+        <br>
+    </div>
+</div>

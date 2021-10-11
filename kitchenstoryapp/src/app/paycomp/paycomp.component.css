@@ -1,0 +1,132 @@
+.spacer {
+    flex: 1;
+}
+
+.subheadersection {
+    position: relative;
+    min-width: 680px;
+    top: 10px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: papayawhip;
+    color: rgb(44, 40, 40);
+    font-size:medium;
+    font-weight: 600;
+    margin-top: 0cm;
+    margin-left: 0.5cm;
+    margin-right: 0.5cm;
+    text-indent: 0.5cm;
+}
+.bodysection {
+    position: relative;
+    min-width: 680px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height:fit-content;
+    display: flex;
+    align-items: center;
+    background-color: papayawhip;
+    color: rgb(44, 40, 40);
+    font-size:medium;
+    font-weight: 600;
+    margin-top: 0cm;
+    margin-left: 0.5cm;
+    margin-right: 0.5cm;
+    text-indent: 0.5cm; 
+}
+
+.card {
+    all: unset;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    background-color: #e7f5af;
+    height: 50px;
+    width: 250px;
+    margin: 0 8px 16px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    line-height: 24px;
+    font-size: medium;
+    text-indent: 0cm;
+    }
+
+    .card#creditcardnumber{
+        width: 160px;
+        justify-content: center;
+        height: 10px;
+        background-color: #d5dadf;
+    }
+    .card#dateentry{ 
+        width: 35px;
+        justify-content: center;
+        height: 10px;
+        background-color: #d5dadf;
+    }
+
+    .card#cvcentry{
+        width: 45px;
+        justify-content: center;
+        height: 10px;
+        background-color: #d5dadf;
+    }
+    .card#executepayment{
+    width: 160px;
+    justify-content: center;
+    background-color: #a1bfe2;
+    height: 20px;
+}
+
+.card#executepayment:not(.highlight-card):enabled {
+    cursor: pointer;
+}
+
+.card#executepayment:not(.highlight-card):enabled:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+}
+
+.card#executepayment:disabled {
+    background-color: #a1bfe213;
+    color: lightgray;
+    cursor:unset;
+}
+
+.subheadersection #cart {
+    height: 20px;
+    margin: 0 8px
+}
+
+a,
+a:visited,
+a:hover {
+  color: #1976d2;
+  text-decoration: none; 
+}
+
+a:hover {
+  color: #125699;
+}
+
+.card#returntomainpage{
+    width: 160px;
+    justify-content: center;
+    background-color: #a1bfe2;
+    height: 20px;
+}
+
+.card#returntomainpage:not(.highlight-card) {
+    cursor: pointer;
+}
+
+.card#returntomainpage:not(.highlight-card):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+}

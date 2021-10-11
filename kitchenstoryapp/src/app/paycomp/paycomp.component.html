@@ -1,0 +1,135 @@
+<!-- sub header section -->
+<div *ngIf=flagquery1>
+    <div class="subheadersection"> 
+        <h2>Enter Credit Card Details...</h2>
+        <div class="spacer"></div>
+        <nav>
+            <a routerLink="/cartcomp">Show Shopping Cart
+                <img id="cart" src="./assets/images/shoppingcart.png" >
+            </a>
+        </nav>
+    </div>
+
+    <!-- payment details -->
+    <form id="paymentform" #paymentForm=ngForm (ngSubmit)="executepayment(paymentForm)" >
+        <div class="bodysection">
+            <br>
+        </div> 
+        <div class="bodysection">
+            <br>
+            <label>Credit Card Number (16 digits): </label>
+            <input class="card" id="creditcardnumber" type="text" name="ccnumber" pattern="[0-9]{16}" ngModel required #ccnumber=ngModel/>      
+            <div *ngIf="ccnumber.touched">
+                <div *ngIf="ccnumber.errors?.required">
+                    Card number is required
+                </div>
+                <div *ngIf="ccnumber.errors?.pattern">
+                    Card number is invalid
+                </div>
+            </div>
+        </div>
+        <div class="bodysection">
+            <br>
+            <label>Expiry Date (mm/yy): </label>
+            <input class="card" id="dateentry" type="number" name="ccmonth" min=0 max=12 ngModel required #ccmonth=ngModel/>/      
+            <div *ngIf="ccmonth.touched">
+                <div *ngIf="ccmonth.errors?.required">
+                    Month is required
+                </div>
+                <div *ngIf="ccmonth.errors?.max">
+                    Month is invalid
+                </div>
+                <div *ngIf="ccmonth.errors?.min">
+                    Month is invalid
+                </div>
+            </div>
+            <input class="card" id="dateentry" type="number" name="ccyear" min=0 max=99 ngModel required #ccyear=ngModel/>      
+            <div *ngIf="ccyear.touched">
+                <div *ngIf="ccyear.errors?.required">
+                    Year is required
+                </div>
+                <div *ngIf="ccyear.errors?.max">
+                    Year is invalid
+                </div>
+                <div *ngIf="ccyear.errors?.min">
+                    Year is invalid
+                </div>
+            </div>
+        </div>
+        <div class="bodysection">
+            <br>
+            <label>CVC Number (3 digits): </label> 
+            <input class="card" id="cvcentry" type="text" name="cccvc" pattern="[0-9]{3}" ngModel required #cccvc=ngModel/>      
+            <div *ngIf="cccvc.touched">
+                <div *ngIf="cccvc.errors?.required">
+                    CVC number is required
+                </div>
+                <div *ngIf="cccvc.errors?.pattern">
+                    CVC number is invalid 
+                </div>
+            </div>
+        </div>
+        <div class="bodysection" id="executepayment">
+            <br>
+            <button class="card" id="executepayment" type="submit" [disabled]="paymentForm.invalid">Pay</button>
+        </div>
+    </form>
+</div>
+<!-- payment results -->
+<div>
+    <div class="bodysection">
+        {{paymentresultmessage}}  
+    </div>
+    <div class="bodysection"><br></div>
+</div>
+<div *ngIf=flagquery2>
+    <div class="bodysection" id="itemstable" >
+        <br>
+        <table border="line" style="background-color: lightcyan;">
+            <tr style="background-color: lightsteelblue; height:40px;" align="left">
+                <th width=130px >Code</th>
+                <th width=130px >Category</th>
+                <th width=130px >Item</th>
+                <th width=130px >Brand</th>
+                <th width=130px >Size</th>
+                <th width=130px >Price</th>
+                <th width=130px >Quantity</th>
+                <th width=130px >Total (US$)</th>
+            </tr>
+            <tr style="height:30px" align="left" *ngFor="let item of purchasedItems">
+                <td>{{item.icode}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.item}}</td>
+                <td>{{item.brand}}</td>
+                <td>{{item.size}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.selectedQuantity}}</td>
+                <td>{{item.total}}</td>
+            </tr>
+            <tr >
+                <td colspan="7">Shipping Cost</td> 
+                <td>{{shippingcost}}</td>
+            </tr>
+            <tr >
+                <td colspan="7">TOTAL</td>
+                <td>{{total}}</td>
+            </tr>
+        </table>
+        <br>
+    </div>
+    <div>
+        <div class="bodysection">
+            <br>
+        </div>
+        <div class="bodysection">
+            Order received at {{todaysDataTime}}, expected delivery in 60 minutes.
+        </div>
+        <div class="bodysection"><br></div>
+    </div>
+    <div class="bodysection" >
+        <br>
+        <div class="card" id="returntomainpage" > 
+            <nav routerLink="/maincomp">Return to main screen</nav>
+        </div> 
+    </div>
+</div>

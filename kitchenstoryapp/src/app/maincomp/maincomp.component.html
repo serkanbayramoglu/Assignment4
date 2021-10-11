@@ -1,0 +1,85 @@
+<nav class="headersection" role="banner">
+    <a routerLink="/admin">Click for Admin Mode</a><br>
+</nav>
+<!-- sub header section -->
+<div class="subheadersection"> 
+    <h2>Please select the item to search...</h2>
+    <div class="spacer"></div>
+    <nav>
+        <a routerLink="/cartcomp">Show Shopping Cart
+            <img id="cart" src="./assets/images/shoppingcart.png" >
+        </a>
+    </nav>
+</div>
+<div class="subheadersection">
+    <br>
+</div>
+<!-- querying section -->
+<div class="bodysection">  
+    <br>
+    <form >
+        <div class="card-container">
+            <div class="card">
+                <label>Select Category: </label>
+                <div class="spacer"></div>
+                <select multiple id="optbox" [(ngModel)] = "selectedcat" name ="selectedcat" (change)="showItemList()"><option *ngFor = "let categ of categoryItemsFromService" [value]="categ.category">{{categ.category}}</option></select>
+            </div>
+            <div class="card" *ngIf=flagqueryItems>
+                <label>Select Item: </label>
+                <div class="spacer"></div>
+                <select multiple id="optbox" [(ngModel)] = "selectedItems" name ="selectedItems" (change)="showQueryBtn()"><option *ngFor = "let item of items" [value]="item">{{item}}</option></select>
+            </div>
+            <div *ngIf=flagqueryQuery>
+                <input class="card" id="submit" type="button" value="Query" (click)="retrieveallitems()" >
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- querying results -->
+<div *ngIf=flagquery> 
+    <form #addToCartForm=ngForm (ngSubmit)="addToCart(addToCartForm)">
+        <div class="bodysection" id="itemstable">
+            <br>
+            <table border="line" style="background-color: lightcyan;">
+                <tr style="background-color: lightsteelblue; height:40px;" align="left">
+                    <th width=130px >Code</th>
+                    <th width=130px >Category</th>
+                    <th width=130px >Item</th>
+                    <th width=130px >Brand</th>
+                    <th width=130px >Size</th>
+                    <th width=130px >Price</th>
+                    <th width=130px >Unit</th>
+                    <th width=130px >Add to Cart</th>
+                </tr>
+                <tr style="height:30px" align="left" *ngFor="let ksitem of itemsFromService">
+                    <td>{{ksitem.code}}</td>
+                    <td>{{ksitem.category}}</td>
+                    <td>{{ksitem.item}}</td>
+                    <td>{{ksitem.brand}}</td> 
+                    <td>{{ksitem.size}}</td>
+                    <td>{{ksitem.price}}</td>
+                    <td >{{ksitem.unit}}</td>
+                    <td><input type="number" name="{{ksitem.code}}" max={{minofdata(ksitem.code,ksitem.quantity)}}  min=0 ngModel #count=ngModel  /></td> 
+                    <div *ngIf="count.touched">
+                        <div *ngIf="count.errors?.max">
+                            Cannot be more than {{minofdata(ksitem.code,ksitem.quantity)}}
+                        </div>
+                        <div *ngIf="count.errors?.min">
+                            Cannot be less than 0
+                        </div>
+                    </div>
+                </tr>
+            </table>
+            <br>
+        </div>
+
+        <div class="bodysection">
+            <br>
+        </div>    
+        <div class="bodysection">
+            <br>
+            <button class="card" id="addtocard" type="submit" [disabled]="addToCartForm.invalid">Add to Cart</button>
+        </div>
+    </form>
+</div> 
